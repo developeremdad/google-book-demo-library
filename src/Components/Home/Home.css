@@ -7,10 +7,6 @@
     font-size: small;
 }
 
-.entries-btn:last-child {
-    padding: 5px 14px;
-}
-
 .entries-go-btn {
     border: none;
     border-radius: 10px;

@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
 
 const Home = () => {
     const [entries, setEntries] = useState(0);
+    const [recentBooks, setRecentBooks] = useState([]);
+
+    useEffect(() =>{
+        fetch('https://www.googleapis.com/books/v1/volumes/?q=web&orderBy=newest&maxResults=10')
+        .then(res => res.json())
+        .then(data => setRecentBooks(data.items))
+    },[])
+
+    
 
     return (
-        <div style={{backgroundColor: '#fde47c', height: '100vh'}}>
+        <div style={{ backgroundColor: '#fde47c', height: '100vh' }}>
             <div className="container py-4">
                 <h2 className='fw-bold'>Demo Book Library</h2>
                 <div className="row g-3 my-4 text-start">
@@ -13,12 +22,11 @@ const Home = () => {
                         <h4>Recently Release Books</h4>
                         <hr className="border w-50 border-dark m-0" />
                         <ol className='fw-bold'>
-                            <li>demo book title 1</li>
-                            <li>demo book title 1</li>
-                            <li>demo book title 1</li>
-                            <li>demo book title 1</li>
-                            <li>demo book title 1</li>
-                            <li>demo book title 1</li>
+                            {
+                                recentBooks?.map((book, index) =>(
+                                    <li key={book.id}>{book?.volumeInfo?.title}</li>
+                                ))
+                            }
                         </ol>
                     </div>
                     <div className="col-sm-6">
@@ -34,13 +42,13 @@ const Home = () => {
                         </ol>
                         <div>
                             <p className='fw-bold'>
-                                <span className='me-3'>Show</span> 
-                                <button onClick={() => setEntries(entries + 1)} 
-                                className="entries-btn me-3">+</button>
+                                <span className='me-3'>Show</span>
+                                <button onClick={() => setEntries(entries + 1)}
+                                    className="entries-btn me-3">+</button>
                                 <span className='me-3'>{entries}</span>
-                                <button onClick={() => setEntries(entries - 1)}  
-                                {...(entries == 0 ? {disabled: true } : {})} 
-                                className="entries-btn me-3">-</button>
+                                <button onClick={() => setEntries(entries - 1)}
+                                    {...(entries == 0 ? { disabled: true } : {})}
+                                    className="entries-btn me-3">-</button>
                                 <span className='me-3'>entries</span>
                                 <button className="entries-go-btn">Go</button>
                             </p>
