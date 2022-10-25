@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import BookDetails from '../BookDetails/BookDetails';
 
 const Publishers = () => {
     const [publishers, setPublishers] = useState([]);
     const [bookDetails, setBookDetails] = useState([]);
     const [bookId, setBookId] = useState('');
 
-    console.log(bookDetails);
 
     const filterByPublisher = publishers.filter(publisher => publisher.volumeInfo.publisher === 'John Wiley & Sons')
     useEffect(() => {
@@ -20,7 +20,7 @@ const Publishers = () => {
         fetch(url)
         .then(res => res.json())
         .then(data => setBookDetails(data));
-    }, [])
+    }, [bookId])
 
 
     return (
@@ -28,13 +28,14 @@ const Publishers = () => {
             <h4>Editor's Pick</h4>
             <hr className="border w-50 border-dark mt-0 mb-3" />
 
-            <div className="row g-3">
+            <div className="row g-4">
                 {
                     filterByPublisher.map((publisher, index) => (
                         <div key={index} className="col-sm-2">
                             <img src={publisher?.volumeInfo?.imageLinks?.thumbnail}
                             onClick={() => setBookId(publisher?.id)}
-                                className='img-fluid'
+                                className='w-100 border border-5 border-dark rounded'
+                                style={{cursor: 'pointer'}}
                                 alt="publisher" />
                         </div>
                     ))
@@ -42,7 +43,11 @@ const Publishers = () => {
             </div>
 
             {/* display book details  */}
-            
+            {
+                bookId && <BookDetails 
+                bookDetails={bookDetails}
+                />
+            }
         </div>
     );
 };

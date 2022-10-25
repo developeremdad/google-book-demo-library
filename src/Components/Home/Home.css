@@ -7,6 +7,10 @@
     font-size: small;
 }
 
+#entries-btn-minus {
+    padding: 6px 14px;
+}
+
 .entries-go-btn {
     border: none;
     border-radius: 10px;
