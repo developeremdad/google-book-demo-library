@@ -1,0 +1,26 @@
+.entries-btn {
+    border: none;
+    border-radius: 50%;
+    padding: 5px 11px;
+    color: #dddddd;
+    background-color: #e06d61;
+    font-size: small;
+}
+
+.entries-btn:last-child {
+    padding: 5px 14px;
+}
+
+.entries-go-btn {
+    border: none;
+    border-radius: 10px;
+    padding: 5px 15px;
+    color: #dddddd;
+    background-color: #e06d61;
+    font-size: small;
+}
+
+.entries-btn:hover,
+.entries-go-btn:hover {
+    background-color: #c3594e;
+}
