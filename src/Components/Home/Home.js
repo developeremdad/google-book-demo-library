@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import Publishers from '../Publishers/Publishers';
 import './Home.css';
 
 const Home = () => {
     const [entries, setEntries] = useState(0);
     const [recentBooks, setRecentBooks] = useState([]);
 
-    useEffect(() =>{
-        fetch('https://www.googleapis.com/books/v1/volumes/?q=web&orderBy=newest&maxResults=10')
-        .then(res => res.json())
-        .then(data => setRecentBooks(data.items))
-    },[])
-
-    
+    useEffect(() => {
+        fetch('https://www.googleapis.com/books/v1/volumes/?q=web&orderBy=newest&maxResults=8')
+            .then(res => res.json())
+            .then(data => setRecentBooks(data.items))
+    }, [])
 
     return (
-        <div style={{ backgroundColor: '#fde47c', height: '100vh' }}>
+        <div style={{ backgroundColor: '#fde47c', height: '100%' }}>
             <div className="container py-4">
                 <h2 className='fw-bold'>Demo Book Library</h2>
                 <div className="row g-3 my-4 text-start">
@@ -23,7 +22,7 @@ const Home = () => {
                         <hr className="border w-50 border-dark m-0" />
                         <ol className='fw-bold'>
                             {
-                                recentBooks?.map((book, index) =>(
+                                recentBooks?.map((book, index) => (
                                     <li key={book.id}>{book?.volumeInfo?.title}</li>
                                 ))
                             }
@@ -55,6 +54,9 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+
+                {/* editor section  */}
+                <Publishers />
             </div>
         </div>
     );
